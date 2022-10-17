@@ -52,7 +52,7 @@ api.add_resource(GenerateContradiction, "/contradiction")
 
 
 # Generate Enhancement
-class Enhance(Resource):
+class GenerateEnhancement(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('prefix', type=str)
@@ -86,4 +86,4 @@ class Enhance(Resource):
         prefix = args['prefix']
         return self.generate_enhancement(prefix)     
 
-api.add_resource(Enhance, "/enhance")
+api.add_resource(GenerateEnhancement, "/enhance")
