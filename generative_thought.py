@@ -50,7 +50,6 @@ class GenerateContradiction(Resource):
         
 api.add_resource(GenerateContradiction, "/contradiction")
 
-
 # Generate Enhancement
 class GenerateEnhancement(Resource):
     def __init__(self):
@@ -87,3 +86,105 @@ class GenerateEnhancement(Resource):
         return self.generate_enhancement(prefix)     
 
 api.add_resource(GenerateEnhancement, "/enhance")
+
+# Generate Assumptiong Questioning
+class GenerateAssumptionQuestioning(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('claim', type=str)
+        
+    def generate_assumptiong_questioning(claim):
+        prompt = """'%s'
+        An ingenous expert questioned the assumptions made saying:
+        """%(claim)
+        response = openai.Completion.create(
+          engine="text-davinci-002",
+          prompt=prompt,
+          temperature=0.7,
+          max_tokens=256,
+          top_p=1,
+          frequency_penalty=0,
+          presence_penalty=0
+        )
+        text = response['choices'][0]['text']
+        return text
+      
+    def get(self):
+        args = self.parser.parse_args()
+        claim = args['claim']
+        return self.generate_assumptiong_questioning(claim)
+    
+    def post(self):
+        args = self.parser.parse_args()
+        claim = args['claim']
+        return self.generate_assumptiong_questioning(claim)
+        
+api.add_resource(GenerateAssumptionQuestioning, "/assumptiong-questioning")
+
+# Generate Supporting Example
+class GenerateSupportingExample(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('claim', type=str)
+        
+    def generate_supporting_example(claim):
+        prompt = """'%s'
+        A true story supporting this claim is:
+        """%(claim)
+        response = openai.Completion.create(
+          engine="text-davinci-002",
+          prompt=prompt,
+          temperature=0.7,
+          max_tokens=256,
+          top_p=1,
+          frequency_penalty=0,
+          presence_penalty=0
+        )
+        text = response['choices'][0]['text']
+        return text
+      
+    def get(self):
+        args = self.parser.parse_args()
+        claim = args['claim']
+        return self.generate_supporting_example(claim)
+    
+    def post(self):
+        args = self.parser.parse_args()
+        claim = args['claim']
+        return self.generate_supporting_example(claim)
+        
+api.add_resource(GenerateSupportingExample, "/supporting-example")
+
+# Generate Contradicting Example
+class GenerateContradictingExample(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('claim', type=str)
+        
+    def generate_contradicting_example(claim):
+        prompt = """'%s'
+        A true story contradicting this claim is:
+        """%(claim)
+        response = openai.Completion.create(
+          engine="text-davinci-002",
+          prompt=prompt,
+          temperature=0.7,
+          max_tokens=256,
+          top_p=1,
+          frequency_penalty=0,
+          presence_penalty=0
+        )
+        text = response['choices'][0]['text']
+        return text
+      
+    def get(self):
+        args = self.parser.parse_args()
+        claim = args['claim']
+        return self.generate_contradicting_example(claim)
+    
+    def post(self):
+        args = self.parser.parse_args()
+        claim = args['claim']
+        return self.generate_contradicting_example(claim)
+        
+api.add_resource(GenerateContradictingExample, "/contradicting-example")
