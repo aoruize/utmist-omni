@@ -1,3 +1,17 @@
+# 45.79.67.135
+# 
+# Example call:
+# r = requests.post("http://45.79.67.135/gpt3", json={'query':['free will']})
+#
+# To run:
+# cd /home/utmist-omni
+# gunicorn3 generative_thought:app
+#
+# To restart & run contiually:
+# lsof -ti tcp:8000 | xargs kill -9
+# tmux kill-session -t prod
+# tmux new-session -s prod -d “gunicorn3 generative_thought:app”
+
 # Imports
 from flask import Flask, request
 from flask_restful import reqparse, Api, Resource
