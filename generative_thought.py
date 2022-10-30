@@ -13,11 +13,10 @@
 # tmux new-session -s prod -d “gunicorn3 generative_thought:app”
 
 # Imports
-from flask import Flask, request
-from flask_restful import reqparse, Api, Resource
+from flask import Flask, request, render_template, url_for, copy_current_request_context, redirect, flash, session
+from flask_login import login_user, logout_user, login_required, current_user
+from flask_cors import CORS
 import logging
-import numpy as np
-import math
 import openai
 import os
 from dotenv import load_dotenv
@@ -25,6 +24,7 @@ from dotenv import load_dotenv
 # Initializations
 app = Flask(__name__)
 api = Api(app)
+CORS(app, resources={"/gpt3": {"origins": "*"},}, supports_credentials=True)
 
 # Load environment variables
 load_dotenv()
